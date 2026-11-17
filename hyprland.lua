@@ -1,62 +1,31 @@
-hl.env("XCURSOR_SIZE", 24)
-hl.env("XCURSOR_THEME", "Vanilla-DMZ")
-hl.env("HYPRCURSOR_SIZE", 24)
-hl.env("HYPRSHOT_DIR", "/home/zethec/Pictures/Screenshot/")
+-- get the hyprland root config. fallback to .config if missing
+local hyprRoot
 
-require("hyprland_conf.binds")
-require("hyprland_conf.monitor")
-require("hyprland_conf.special_workspaces")
-require("hyprland_conf.look")
+if os.getenv("HYPRLAND_ROOT") then
+    hyprRoot = os.getenv("HYPRLAND_ROOT")
+else
+    hyprRoot = os.getenv("HOME") .. "/.config/hypr"
+end
 
-hl.on("hyprland.start", function()
-    hl.exec_cmd("hyprpaper")
-    hl.exec_cmd("hypridle")
-    hl.exec_cmd("barust")
-    hl.exec_cmd("systemctl --user start hyprpolkitagent")
-end)
+-- Use global HyprRoot to extrappolate modules
+local modules = hyprRoot .. "/modules"
 
-hl.config({
-    input = {
-        kb_layout = "us",
-        kb_variant = "",
-        kb_model = "",
-        kb_options = "",
-        kb_rules = "",
+-- get the lua files in modules
+local files = io.popen('find -L "' .. modules .. '" -name "*.lua" -type f | sort')
+if not files then
+    return
+end
 
-        follow_mouse = 1,
+for path in files:lines() do
+    local ok, error = pcall(dofile, path)
+    -- add notification if fail
+    if not ok then
+        hl.notification.create({
+            text = "autoload: " .. path .. "\n" .. tostring(error),
+            timeout = 8000,
+            icon = "warning",
+        })
+    end
+end
 
-        sensitivity = 0, -- -1.0 - 1.0, 0 means no modification.
-
-        touchpad = {
-            natural_scroll = false,
-        },
-    },
-})
-
-hl.device({
-    name = "epic-mouse-v1",
-    sensitivity = -0.5,
-})
-
--- Suppress maximize events for all windows
-hl.window_rule({
-    name = "suppress-maximize",
-    match = {
-        class = ".*",
-    },
-    suppress_event = "maximize",
-})
-
--- Fix some dragging issues with XWayland
-hl.window_rule({
-    name = "fix-xwayland-drag",
-    match = {
-        class = "^$",
-        title = "^$",
-        xwayland = true,
-        float = true,
-        fullscreen = false,
-        focus = true,
-    },
-    suppress_event = "maximize",
-})
+files:close()
