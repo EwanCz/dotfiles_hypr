@@ -1,6 +1,6 @@
 WALL_DIR="$HOME/Pictures/backgrounds/"
 STATE_FILE="$HOME/.cache/hyprpaper.index"
-MONITOR=" " # Replace with your actual monitor name from `hyprctl monitors`
+MONITOR="eDP-1"
 
 # Get list of wallpapers
 WALLS=("$WALL_DIR"/*)
