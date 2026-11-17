@@ -8,8 +8,8 @@ hl.bind(mainMod .. " + Z", hl.dsp.window.fullscreen({ mode = "fullscreen", actio
 hl.bind(mainMod .. " + W", hl.dsp.window.close())
 hl.bind(mainMod .. " + SHIFT + P", hl.dsp.exit())
 hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("hyprlock"))
-hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd("~/.config/hypr/scripts/change_background.sh"))
-hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exec_cmd("~/.config/hypr/scripts/toggle_mirror.sh"))
+hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd("${HYPRLAND_ROOT}/scripts/change_background.sh"))
+hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exec_cmd("${HYPRLAND_ROOT}/scripts/toggle_mirror.sh"))
 
 -- reload bar
 hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("barust close; barust"))

@@ -49,8 +49,6 @@
           }
         ));
 
-      # Give each of these its own baked-in --config so they work the same
-      # way whether they're launched from inside Hyprland or anywhere else.
       hyprlock = pkgs.lib.makeOverridable mkWrapper {
         inherit pkgs;
         package = pkgs.hyprlock;
