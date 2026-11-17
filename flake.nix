@@ -45,6 +45,7 @@
               ;
 
             runtimePkgs = builtins.attrValues (runtimePkgsDefault // runtimePkgs);
+            passthru.providedSessions = package.providedSessions;
           }
         ));
     in
