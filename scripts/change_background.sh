@@ -1,6 +1,6 @@
 WALL_DIR="$HOME/Pictures/backgrounds/"
 STATE_FILE="$HOME/.cache/hyprpaper.index"
-MONITOR="eDP-1"
+MONITOR=""
 
 # Get list of wallpapers
 WALLS=("$WALL_DIR"/*)
