@@ -1,7 +1,7 @@
 hl.env("XCURSOR_SIZE", 24)
 hl.env("XCURSOR_THEME", "Vanilla-DMZ")
 hl.env("HYPRCURSOR_SIZE", 24)
-hl.env("HYPRSHOT_DIR", "~/Pictures/Screenshot/")
+hl.env("HYPRSHOT_DIR", os.getenv("HOME") .. "/Pictures/Screenshot/")
 
 hl.on("hyprland.start", function()
     hl.exec_cmd("hyprpaper")
